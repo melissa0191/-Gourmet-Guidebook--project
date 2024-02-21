@@ -1,19 +1,20 @@
 
-Project Pitch:
+#Project Pitch:
 
-Owner/s: [Melissa Velasquez Greene]
-Phase and Cohort: Phase 4
-One sentence app description: Movie Management App for tracking and organizing your favorite films.
+#Owner/s: [Melissa Velasquez Greene]
+#Phase and Cohort: Phase 4
+#One sentence app description: Movie Management App for tracking and organizing your favorite films.
 
 Domain Model: [Insert domain model image/link here]
 
-MVP:
+```MVP:
 
 Implement CRUD functionality.
 Define models for movies, genres, directors, and actors with appropriate relationships.
 Validations for required fields in models.
 RESTful API routes for accessing and manipulating movie data.
 Serialize data for API responses.
+```
 Backend (API):
 MODELS
 
@@ -42,7 +43,7 @@ Name must be present
 Actor model:
 Name must be present
 CONTROLLERS
-
+```
 API routes following RESTful conventions:
 GET /movies/
 POST /movies/
@@ -65,6 +66,7 @@ GET /actors/int:id
 PATCH /actors/int:id
 DELETE /actors/int:id
 FRONTEND (REACT)
+``
 
 Components for making requests to API:
 MovieForm
