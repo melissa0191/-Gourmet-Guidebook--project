@@ -111,7 +111,7 @@ npm start --prefix client
 ```
   
 ```
-- **Rating:**
+- Rating:
   - GET /ratings/
   - POST /ratings/
   - GET /ratings/<int:id>
@@ -120,7 +120,7 @@ npm start --prefix client
 ```
 
 ```
-- **User:**
+- User:
   - GET /users/
   - POST /users/
   - GET /users/<int:id>
