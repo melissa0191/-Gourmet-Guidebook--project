@@ -5,7 +5,7 @@
 
 ## Phase and Cohort: Flask Phase 5 SE111323
 
-## App description:Recipe Manager is a web application designed to help users manage their recipes. Users can create, read, update, and delete recipes, as well as categorize them, search for recipes based on ingredients or categories, and rate recipes.
+## App description:Recipe Manager is a web application designed to help users manage their recipes. 
 
 ## CRUD User Story
 
