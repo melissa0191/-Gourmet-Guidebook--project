@@ -2,11 +2,10 @@
 # Project Pitch:
 
 ## Owner/s: [Melissa Velasquez Greene]
+
 ## Phase and Cohort: Flask Phase 5 SE111323
-## One sentence app description:Recipe Manager is a web application designed to help users manage their recipes. Users can create, read, update, and delete recipes, as well as categorize them, search for recipes based on ingredients or categories, and rate recipes.
 
-## Domain Model: [Insert domain model image/link here]
-
+## App description:Recipe Manager is a web application designed to help users manage their recipes. Users can create, read, update, and delete recipes, as well as categorize them, search for recipes based on ingredients or categories, and rate recipes.
 
 ## CRUD User Story
 
@@ -49,11 +48,6 @@ running:
 ```sh
 npm start --prefix client
 ```
-
-## Models
-
-The file `server/models.py` defines the model classes **without relationships**.
-Use the following commands to create the initial database `app.db`:
 
 ```console
 export FLASK_APP=server/app.py
@@ -100,32 +94,39 @@ npm start --prefix client
 ### API Routes
 
 - **Recipe:**
-  - GET /recipes/
+ ```
+- GET /recipes/
   - POST /recipes/
   - GET /recipes/<int:id>
   - PATCH /recipes/<int:id>
   - DELETE /recipes/<int:id>
+```
   
-- **Category:**
+``` - **Category:**
   - GET /categories/
   - POST /categories/
   - GET /categories/<int:id>
   - PATCH /categories/<int:id>
   - DELETE /categories/<int:id>
+```
   
+```
 - **Rating:**
   - GET /ratings/
   - POST /ratings/
   - GET /ratings/<int:id>
   - PATCH /ratings/<int:id>
   - DELETE /ratings/<int:id>
+```
 
+```
 - **User:**
   - GET /users/
   - POST /users/
   - GET /users/<int:id>
   - PATCH /users/<int:id>
   - DELETE /users/<int:id>
+```
 
 ## Frontend (React)
 
