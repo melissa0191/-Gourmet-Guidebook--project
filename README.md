@@ -11,6 +11,8 @@
 
 As a user, I want to be able to create, read, update, and delete recipes of my planned and actual time, as well as categorize recipes and rate them.
 
+## Domain Model
+![domain model](https://i.imgur.com/qtEkqHH.png)
 In this repo:
 
 - There is a Flask application with some features built out.
