@@ -93,8 +93,8 @@ npm start --prefix client
 
 ### API Routes
 
-- **Recipe:**
  ```
+- Recipe:
 - GET /recipes/
   - POST /recipes/
   - GET /recipes/<int:id>
@@ -102,7 +102,8 @@ npm start --prefix client
   - DELETE /recipes/<int:id>
 ```
   
-``` - **Category:**
+```
+- Category:
   - GET /categories/
   - POST /categories/
   - GET /categories/<int:id>
