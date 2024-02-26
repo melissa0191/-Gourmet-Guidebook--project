@@ -1,6 +1,5 @@
-
 import React, { useState, useEffect } from 'react';
-import { Route, Routes } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import Header from './components/Header';
 import Footer from './components/Footer';
 import RecipeList from './components/RecipeList';
@@ -22,14 +21,6 @@ function App() {
   // Example of fetching recipes
   const fetchRecipes = () => {
     // Your API call to fetch recipes would go here
-    // Example:
-    // axios.get('/recipes')
-    //   .then(response => {
-    //     setRecipes(response.data);
-    //   })
-    //   .catch(error => {
-    //     console.error('Error fetching recipes:', error);
-    //   });
     // For now, just setting some dummy data
     const dummyRecipes = [
       { id: 1, title: 'Pasta Carbonara', ingredients: 'Spaghetti, eggs, bacon, parmesan cheese, black pepper' },
@@ -41,14 +32,6 @@ function App() {
   // Example of fetching categories
   const fetchCategories = () => {
     // Your API call to fetch categories would go here
-    // Example:
-    // axios.get('/categories')
-    //   .then(response => {
-    //     setCategories(response.data);
-    //   })
-    //   .catch(error => {
-    //     console.error('Error fetching categories:', error);
-    //   });
     // For now, just setting some dummy data
     const dummyCategories = [
       { id: 1, name: 'Italian' },
@@ -59,17 +42,19 @@ function App() {
   };
 
   return (
-    <div>
-      <Header />
-      <Routes>
-        <Route path="/recipes" element={<RecipeList recipes={recipes} />} />
-        <Route path="/recipes/:id" element={<RecipeDetail recipes={recipes} />} />
-        <Route path="/recipes/new" element={<RecipeForm categories={categories} />} />
-        <Route path="/categories" element={<CategoryList categories={categories} />} />
-        <Route path="/categories/new" element={<CategoryForm />} />
-      </Routes>
-      <Footer />
-    </div>
+    <Router> {/* Wrap your routes with the BrowserRouter component */}
+      <div>
+        <Header />
+        <Switch>
+          <Route path="/recipes" element={<RecipeList recipes={recipes} />} />
+          <Route path="/recipes/:id" element={<RecipeDetail recipes={recipes} />} />
+          <Route path="/recipes/new" element={<RecipeForm categories={categories} />} />
+          <Route path="/categories" element={<CategoryList categories={categories} />} />
+          <Route path="/categories/new" element={<CategoryForm />} />
+        </Switch>
+        <Footer />
+      </div>
+    </Router>
   );
 }
 
