@@ -5,7 +5,7 @@ from flask import request, make_response
 from werkzeug.exceptions import NotFound
 from flask_restful import Api, Resource
 from models import db, Recipe, Category, Rating, User
-from config import app
+
 
 
 

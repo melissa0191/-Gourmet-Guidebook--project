@@ -1,10 +1,10 @@
-from app import db
-from models import User, Recipe, Category, Rating
+from app import app
+from models import User, Recipe, Category, Rating,db
 
-def seed_data():
+with app.app_context():
     # Create users
-    user1 = User(username='user1', email='user1@example.com', password='password1')
-    user2 = User(username='user2', email='user2@example.com', password='password2')
+    user1 = User(username='user1', email='user1@example.com' )
+    user2 = User(username='user2', email='user2@example.com')
     db.session.add(user1)
     db.session.add(user2)
     db.session.commit()
@@ -28,13 +28,13 @@ def seed_data():
     db.session.commit()
 
     # Create ratings
-    rating1 = Rating(value=4, recipe_id=1)
-    rating2 = Rating(value=5, recipe_id=2)
-    rating3 = Rating(value=3, recipe_id=3)
+    rating1 = Rating(rating_value=4, recipe_id=1, user_id= 1)
+    rating2 = Rating(rating_value=5, recipe_id=2, user_id= 2)
+    rating3 = Rating(rating_value=3, recipe_id=3, user_id= 3)
     db.session.add(rating1)
     db.session.add(rating2)
     db.session.add(rating3)
     db.session.commit()
 
-if __name__ == '__main__':
-    seed_data()
+
+   
