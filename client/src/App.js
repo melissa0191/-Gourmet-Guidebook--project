@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import { BrowserRouter as Router, Route } from 'react-router-dom';
 import Header from './components/Header';
 import Footer from './components/Footer';
 import RecipeList from './components/RecipeList';
@@ -7,6 +7,7 @@ import RecipeDetail from './components/RecipeDetail';
 import RecipeForm from './components/RecipeForm';
 import CategoryList from './components/CategoryList';
 import CategoryForm from './components/CategoryForm';
+import Home from  './components/Home';
 
 function App() {
   const [recipes, setRecipes] = useState([]);
@@ -42,16 +43,15 @@ function App() {
   };
 
   return (
-    <Router> {/* Wrap your routes with the BrowserRouter component */}
+    <Router>
       <div>
         <Header />
-        <Switch>
-          <Route path="/recipes" element={<RecipeList recipes={recipes} />} />
-          <Route path="/recipes/:id" element={<RecipeDetail recipes={recipes} />} />
-          <Route path="/recipes/new" element={<RecipeForm categories={categories} />} />
-          <Route path="/categories" element={<CategoryList categories={categories} />} />
-          <Route path="/categories/new" element={<CategoryForm />} />
-        </Switch>
+        <Route path="/recipes" exact component={() => <RecipeList recipes={recipes} />} />
+        <Route path="/recipes/:id" component={() => <RecipeDetail recipes={recipes} />} />
+        <Route path="/recipes/new" component={() => <RecipeForm categories={categories} />} />
+        <Route path="/categories" exact component={() => <CategoryList categories={categories} />} />
+        <Route path="/categories/new" component={CategoryForm} />
+        <Route path="/home" exact component={Home} />
         <Footer />
       </div>
     </Router>
