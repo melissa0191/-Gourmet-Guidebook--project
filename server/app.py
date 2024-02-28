@@ -24,6 +24,7 @@ def home():
 
 class Recipes(Resource):
     def get(self):
+        # import ipdb; ipdb.set_trace()
         recipes = [recipe.to_dict() for recipe in Recipe.query.all()]
         return make_response(recipes, 200)
     
