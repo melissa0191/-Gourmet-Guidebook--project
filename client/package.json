@@ -3,6 +3,8 @@
   "version": "1.0.0",
   "description": "A web application for managing recipes",
   "main": "index.js",
+  "proxy": "http://localhost:5556",
+
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",

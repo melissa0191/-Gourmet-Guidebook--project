@@ -11,8 +11,15 @@ class User(db.Model, SerializerMixin):
     recipes = db.relationship('Recipe', backref='user')
     ratings = db.relationship('Rating', back_populates='user')
 
-
-    serialize_rules = ('-recipes.user',)
+    def to_dict(self):
+        return {
+            'id': self.id,
+            'username': self.username,
+            'email': self.email,
+            'recipes': [recipe.to_dict() for recipe in self.recipes],
+            'ratings': [rating.to_dict() for rating in self.ratings]
+        }
+   
   
     # @validates('username', 'email', 'password')
     # def validate_user(self, key, value):
@@ -37,7 +44,17 @@ class Recipe(db.Model, SerializerMixin):
 
     ratings = db.relationship('Rating', back_populates='recipe')
 
-    serialize_rules = ('-ratings.recipe',)
+    def to_dict(self):
+        return {
+            'id': self.id,
+            'title': self.title,
+            'ingredients': self.ingredients,
+            'instructions': self.instructions,
+            'user_id': self.user_id,
+            'category_id': self.category_id,
+            'ratings': [rating.to_dict() for rating in self.ratings]
+        }
+
 
     def __repr__(self):
         return f'<Recipe {self.id} : {self.title} : {self.ingredients} :{self.instructions} :{self.category_id} >'
@@ -51,7 +68,12 @@ class Category(db.Model, SerializerMixin):
     name = db.Column(db.String)
     recipes = db.relationship('Recipe', back_populates='category')
 
-    serialize_rules = ('-recipes.category',)
+    def to_dict(self):
+        return {
+            'id': self.id,
+            'name': self.name,
+            'recipes': [recipe.to_dict() for recipe in self.recipes]
+        }
 
     def __repr__(self):
         return f'<Category {self.id}:{self.name}>'
@@ -64,7 +86,14 @@ class Rating(db.Model, SerializerMixin):
     recipe = db.relationship('Recipe', back_populates='ratings') 
     user_id= db.Column(db.Integer, db.ForeignKey('users.id'))   
     user= db.relationship('User', back_populates='ratings') 
-    serialize_rules = ('-recipe.ratings',)
+    
+    def to_dict(self):
+        return {
+            'id': self.id,
+            'rating_value': self.rating_value,
+            'recipe_id': self.recipe_id,
+            'user_id': self.user_id
+        }
 
     # @validates('rating_value')
     # def validate_value(self, key, value):
