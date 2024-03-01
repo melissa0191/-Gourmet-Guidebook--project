@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { Link } from 'react-router-dom';
 
 function CategoryList() {
   const [categories, setCategories] = useState([]);
   const [newCategoryName, setNewCategoryName] = useState('');
   const [newRecipeName, setNewRecipeName] = useState('');
+  const [newRecipeIngredients, setNewRecipeIngredients] = useState('');
   const [newRecipeInstructions, setNewRecipeInstructions] = useState('');
 
   useEffect(() => {
@@ -26,8 +26,12 @@ function CategoryList() {
     setNewCategoryName(event.target.value);
   };
 
-  const handleNewRecipeChange = (event) => {
+  const handleNewRecipeNameChange = (event) => {
     setNewRecipeName(event.target.value);
+  };
+
+  const handleNewRecipeIngredientsChange = (event) => {
+    setNewRecipeIngredients(event.target.value);
   };
 
   const handleNewRecipeInstructionsChange = (event) => {
@@ -42,6 +46,7 @@ function CategoryList() {
         // Create the recipe associated with the new category
         axios.post('http://127.0.0.1:5556/recipes', {
           title: newRecipeName,
+          ingredients: newRecipeIngredients,
           instructions: newRecipeInstructions,
           category_id: newCategory.id
         })
@@ -51,6 +56,7 @@ function CategoryList() {
           // Reset form fields
           setNewCategoryName('');
           setNewRecipeName('');
+          setNewRecipeIngredients('');
           setNewRecipeInstructions('');
         })
         .catch(error => {
@@ -74,44 +80,59 @@ function CategoryList() {
   };
 
   return (
-    <div>
+    <div className="category-list-container">
       <h2>Category List</h2>
-      <ul>
-        {categories.map(category => (
-          <li key={category.id}>
-            <Link to={`/categories/${category.id}`}>{category.name}</Link>
-            <button onClick={() => handleDeleteCategory(category.id)}>Delete</button>
-            {/* Display recipes associated with the category */}
-            <ul>
-              {category.recipes.map(recipe => (
-                <li key={recipe.id}>{recipe.title}</li>
-              ))}
-            </ul>
-          </li>
-        ))}
-      </ul>
-      <form onSubmit={handleNewCategorySubmit}>
+      {categories.map(category => (
+        <div key={category.id} className="category-item">
+          <h3>{category.name}</h3>
+          <button onClick={() => handleDeleteCategory(category.id)}>Delete Category</button>
+          {/* Display recipes associated with the category */}
+          <ul className="recipe-list">
+            {category.recipes.map(recipe => (
+              <li key={recipe.id} className="recipe-item">
+                <h4>{recipe.title}</h4>
+                <p>Ingredients: {recipe.ingredients}</p>
+                <p>Instructions: {recipe.instructions}</p>
+              </li>
+            ))}
+          </ul>
+        </div>
+      ))}
+      <form onSubmit={handleNewCategorySubmit} className="new-category-form">
         <input
           type="text"
           value={newCategoryName}
           onChange={handleNewCategoryChange}
           placeholder="Enter new category name"
+          className="category-input"
         />
         <input
           type="text"
           value={newRecipeName}
-          onChange={handleNewRecipeChange}
+          onChange={handleNewRecipeNameChange}
           placeholder="Enter new recipe name"
+          className="recipe-input"
+        />
+        <input
+          type="text"
+          value={newRecipeIngredients}
+          onChange={handleNewRecipeIngredientsChange}
+          placeholder="Enter recipe ingredients"
+          className="recipe-input"
         />
         <textarea
           value={newRecipeInstructions}
           onChange={handleNewRecipeInstructionsChange}
           placeholder="Enter recipe instructions"
+          className="recipe-instructions"
         />
-        <button type="submit">Add Category</button>
+        <button type="submit" className="add-category-btn">Add Category</button>
       </form>
     </div>
   );
 }
 
 export default CategoryList;
+
+
+

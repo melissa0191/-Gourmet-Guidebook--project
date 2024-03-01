@@ -9,6 +9,7 @@ function RecipeDetail() {
   const [newRecipeInstructions, setNewRecipeInstructions] = useState('');
   const { id } = useParams();
   const history = useHistory();
+  console.log(newRecipeIngredients,newRecipeTitle)
 
   const handleCreateRecipe = (e) => {
     e.preventDefault();
@@ -18,7 +19,7 @@ function RecipeDetail() {
       ingredients: newRecipeIngredients,
       instructions: newRecipeInstructions,
     };
-
+    console.log(recipeData);
     axios.post('http://127.0.0.1:5556/recipes', recipeData)
       .then(response => {
         setRecipe(response.data);
