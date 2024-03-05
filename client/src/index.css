@@ -1,10 +1,49 @@
 /* Add your CSS styles here */
 body {
-    font-family: Arial, sans-serif;
-    margin: 0;
-    padding: 0;
-  }
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  background-image: url('/Users/melissavelasquezgreene/Development/code/phase-5/-Gourmet-Guidebook--project/client/src/images/background.avif'); /* Specify the path to your image */
+  background-size: cover; /* Cover the entire background */
+  background-position: center; /* Center the background image */
+}
+.home-content {
+  margin-top: 50px; /* Adjust the margin-top as needed */
+  padding: 0 50px; /* Adjust the padding as needed */
+  text-align: center;
+  font-family: 'Roboto', sans-serif; 
   
+}
+
+
+.home-content h2 {
+  font-size: 100x;
+}
+
+
+.header-container {
+  position: absolute;
+  top: 0; 
+  width: 100%; 
+  z-index: 1; 
+  color: white; 
+  padding: 5px; 
+  display: flex;
+  flex-direction: column; 
+  align-items: center; 
+}
+
+.title {
+  text-shadow: 0 0 5px black;;
+    font-weight: bold; 
+    font-size: 72px;
+    margin-right: 254px; 
+    display: flex; 
+    justify-content: center; 
+    white-space: nowrap;
+  }
+
+
   .App {
     text-align: center;
   }
@@ -29,12 +68,12 @@ body {
 
   
   main {
-    padding: 20px;
+    padding: 50px;
   }
   
   footer {
     background-color: #282c34;
     color: white;
-    padding: 10px 0;
+    padding: 1px 0;
   }
   

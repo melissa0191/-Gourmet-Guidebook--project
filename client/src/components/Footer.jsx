@@ -3,7 +3,8 @@ import React from 'react';
 function Footer() {
   return (
     <footer>
-      <p>© 2024 Recipe Manager. All rights reserved.</p>
+      <p>© 2024 Gourmet Guidebook. All rights reserved.</p>
+      <p>© Melissa Velasquez Greene.</p>
     </footer>
   );
 }

@@ -8,11 +8,13 @@ import RecipeForm from './components/RecipeForm';
 import CategoryList from './components/CategoryList';
 import CategoryForm from './components/CategoryForm';
 import Home from './components/Home';
+import Background from './components/Background';
 
 function App() {
   return (
     <Router>
       <div>
+        <Background />
         <Header />
         <Route path="/Home" exact component={Home} />
         <Route path="/recipes" exact component={RecipeList} />

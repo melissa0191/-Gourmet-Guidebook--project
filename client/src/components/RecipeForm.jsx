@@ -17,7 +17,9 @@ function RecipeForm() {
     const recipeData = {
       title,
       ingredients,
-      instructions
+      instructions,
+      user_id,
+      category_id
     };
     console.log(recipeData);
     if (id) {
@@ -61,3 +63,4 @@ function RecipeForm() {
 }
 
 export default RecipeForm;
+

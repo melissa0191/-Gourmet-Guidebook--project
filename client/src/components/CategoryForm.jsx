@@ -3,102 +3,71 @@ import axios from 'axios';
 import { useParams } from 'react-router-dom';
 
 function CategoryForm() {
-  const [categoryName, setCategoryName] = useState('');
-  const [newRecipeName, setNewRecipeName] = useState('');
-  const [newRecipeIngredients, setNewRecipeIngredients] = useState('');
-  const [newRecipeInstructions, setNewRecipeInstructions] = useState('');
   const { id } = useParams(); // Get category ID from URL params
+  const [category, setCategory] = useState({ id: '', name: '' });
 
   useEffect(() => {
-    // Fetch existing category data if editing
+    // Fetch category data if an ID is provided
     if (id) {
-      axios.get(`http://127.0.0.1:5556/categories/${id}`)
-        .then(response => {
-          setCategoryName(response.data.name);
-        })
-        .catch(error => {
-          console.error('Error fetching category for editing:', error);
-        });
+      fetchCategory();
     }
   }, [id]);
 
-  const handleSubmit = (event) => {
-    event.preventDefault();
-
-    const categoryData = {
-      name: categoryName
-    };
-
-    const recipeData = {
-      title: newRecipeName,
-      ingredients: newRecipeIngredients,
-      instructions: newRecipeInstructions,
-      category_id: id
-    };
-
-    axios.post('http://127.0.0.1:5556/categories', categoryData)
+  const fetchCategory = () => {
+    axios.get(`http://127.0.0.1:5556/categories/${id}`)
       .then(response => {
-        const newCategory = response.data;
-        // Create the recipe associated with the new category
-        axios.post('http://127.0.0.1:5556/recipes', recipeData)
-          .then(() => {
-            // Redirect or show success message
-          })
-          .catch(error => {
-            console.error('Error creating new recipe:', error);
-          });
+        setCategory(response.data);
       })
       .catch(error => {
-        console.error('Error creating new category:', error);
+        console.error('Error fetching category:', error);
+      });
+  };
+
+  const handleUpdateCategory = () => {
+    axios.put(`http://127.0.0.1:5556/categories/${id}`, category) // Send the entire category object
+      .then(() => {
+        // Handle success or navigate to another page
+        console.log('Category updated successfully');
+      })
+      .catch(error => {
+        console.error('Error updating category:', error);
       });
   };
 
   return (
-    <div className="category-form-container">
-      <h2>{id ? 'Edit Category' : 'Create Category'}</h2>
-      <form onSubmit={handleSubmit} className="category-form">
-        <label htmlFor="categoryName">Category Name:</label>
-        <input
-          type="text"
-          id="categoryName"
-          value={categoryName}
-          onChange={e => setCategoryName(e.target.value)}
-          required
-          className="category-input"
-        />
-        <label htmlFor="newRecipeName">New Recipe Name:</label>
-        <input
-          type="text"
-          id="newRecipeName"
-          value={newRecipeName}
-          onChange={e => setNewRecipeName(e.target.value)}
-          required
-          className="recipe-input"
-        />
-        <label htmlFor="newRecipeIngredients">Ingredients:</label>
-        <input
-          type="text"
-          id="newRecipeIngredients"
-          value={newRecipeIngredients}
-          onChange={e => setNewRecipeIngredients(e.target.value)}
-          required
-          className="recipe-input"
-        />
-        <label htmlFor="newRecipeInstructions">Instructions:</label>
-        <textarea
-          id="newRecipeInstructions"
-          value={newRecipeInstructions}
-          onChange={e => setNewRecipeInstructions(e.target.value)}
-          required
-          className="recipe-instructions"
-        />
-        <button type="submit" className="submit-btn">{id ? 'Update Category' : 'Create Category'}</button>
-      </form>
+    <div>
+      <h2>Edit Category</h2>
+      <label htmlFor="categoryId">Category ID:</label>
+      <input
+        type="text"
+        id="categoryId"
+        value={category.id}
+        readOnly
+      />
+      <label htmlFor="updatedCategoryName">Updated Category Name:</label>
+      <input
+        type="text"
+        id="updatedCategoryName"
+        value={category.name}
+        onChange={e => setCategory({ ...category, name: e.target.value })} // Update the 'name' property of the 'category' object
+        placeholder="Enter updated category name"
+        required
+      />
+      <button onClick={handleUpdateCategory}>Update Category</button>
     </div>
   );
 }
 
 export default CategoryForm;
+
+
+
+
+
+
+
+
+
 
 
 
