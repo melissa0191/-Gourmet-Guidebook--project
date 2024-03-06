@@ -4,7 +4,7 @@ const Home = () => {
     return (
         <div style={{ marginTop: '-600px', padding: '50px', paddingLeft: '545px', fontFamily: 'Roboto, sans-serif' }}>
             {/* Adjust paddingLeft to move the content more to the right */}
-            <h2 style={{ fontSize: '36px' }}>Welcome to Recipe Manager</h2>
+            <h2 style={{ fontSize: '36px' }}>Welcome to Gourmet Guidebook</h2>
             <p style={{ fontSize: '24px' }}>Easily organize, discover, and share your favorite recipes</p>
             <h3>Key Features</h3>
             <ul style={{ listStyleType: 'none', padding: 0 }}>
