@@ -2,13 +2,15 @@ import React from 'react';
 import { BrowserRouter as Router, Route } from 'react-router-dom';
 import Header from './components/Header';
 import Footer from './components/Footer';
+import Background from './components/BackGround';
 import RecipeList from './components/RecipeList';
 import RecipeDetail from './components/RecipeDetail';
 import RecipeForm from './components/RecipeForm';
 import CategoryList from './components/CategoryList';
 import CategoryForm from './components/CategoryForm';
 import Home from './components/Home';
-import Background from './components/Background';
+
+
 
 function App() {
   return (

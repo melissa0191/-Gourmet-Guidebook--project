@@ -1,16 +1,16 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import axios from 'axios';
 import { useParams } from 'react-router-dom';
 
 function RecipeForm() {
-  
   const [title, setTitle] = useState('');
   const [ingredients, setIngredients] = useState('');
   const [instructions, setInstructions] = useState('');
   const [user_id, setUser_id] = useState('');
   const [category_id, setCategory_id] = useState('');
+  const [image_url, setImageUrl] = useState(''); // State for image URL
   const { id } = useParams(); // Get recipe ID from URL params
-  console.log(title,ingredients,instructions)
+
   const handleSubmit = (event) => {
     event.preventDefault();
 
@@ -19,9 +19,10 @@ function RecipeForm() {
       ingredients,
       instructions,
       user_id,
-      category_id
+      category_id,
+      image_url // Include image URL in the recipe data
     };
-    console.log(recipeData);
+
     if (id) {
       // Edit existing recipe
       axios.patch(`http://127.0.0.1:5556/recipes/${id}`, recipeData)
@@ -53,6 +54,7 @@ function RecipeForm() {
           <input placeholder="Title" type="text" value={title} onChange={e => setTitle(e.target.value)} required />
           <textarea placeholder="Ingredients" value={ingredients} onChange={e => setIngredients(e.target.value)} required />
           <textarea placeholder="Instructions" value={instructions} onChange={e => setInstructions(e.target.value)} required />
+          <input placeholder="Image URL" type="text" value={image_url} onChange={e => setImageUrl(e.target.value)} required /> {/* Image URL field */}
           <textarea placeholder="Category_id" value={category_id} onChange={e => setCategory_id(e.target.value)} required />
           <textarea placeholder="User_id" value={user_id} onChange={e => setUser_id(e.target.value)} required />
           <button type="submit">{id ? 'Update Recipe' : 'Create Recipe'}</button>
@@ -63,4 +65,5 @@ function RecipeForm() {
 }
 
 export default RecipeForm;
+
 

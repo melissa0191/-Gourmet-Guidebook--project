@@ -6,12 +6,7 @@ from werkzeug.exceptions import NotFound
 from flask_restful import Api, Resource
 from models import db, Recipe, Category, Rating, User
 
-
-
-
-
 api = Api(app)
-
 
 @app.errorhandler(NotFound)
 def route_not_found(e):
@@ -24,17 +19,20 @@ def home():
 
 class Recipes(Resource):
     def get(self):
-        # import ipdb; ipdb.set_trace()
         recipes = [recipe.to_dict() for recipe in Recipe.query.all()]
         return make_response(recipes, 200)
     
     def post(self):
         data = request.get_json()
+        if 'image_url' not in data:
+            return make_response({'error': 'image_url is required'}, 400)
+
         try:
             new_recipe = Recipe(
                 title=data['title'],
                 ingredients=data['ingredients'],
                 instructions=data['instructions'],
+                image_url=data['image_url'],  # Add image_url to the creation
                 user_id=data['user_id'],
                 category_id=data['category_id']
             )
@@ -43,7 +41,7 @@ class Recipes(Resource):
             return make_response(new_recipe.to_dict(), 201)
 
         except ValueError:
-            return make_response({'error': 'validation error'})
+            return make_response({'error': 'validation error'}, 400)
 
 class RecipesById(Resource):
     def get(self, id):
@@ -88,7 +86,7 @@ class Categories(Resource):
             return make_response(new_category.to_dict(), 201)
 
         except ValueError:
-            return make_response({'error': 'validation error'})
+            return make_response({'error': 'validation error'}, 400)
 
 class CategoriesById(Resource):
     def get(self, id):
@@ -135,7 +133,7 @@ class Ratings(Resource):
             return make_response(new_rating.to_dict(), 201)
 
         except ValueError:
-            return make_response({'error': 'validation error'})
+            return make_response({'error': 'validation error'}, 400)
 
 class RatingsById(Resource):
     def get(self, id):
@@ -181,7 +179,7 @@ class Users(Resource):
             return make_response(new_user.to_dict(), 201)
 
         except ValueError:
-            return make_response({'error': 'validation error'})
+            return make_response({'error': 'validation error'}, 400)
 
 class UsersById(Resource):
     def get(self, id):
@@ -220,4 +218,4 @@ api.add_resource(Users, '/users')
 api.add_resource(UsersById, '/users/<int:id>')
 
 if __name__ == '__main__':
-        app.run(port=5556, debug=True) 
+        app.run(port=5556, debug=True)

@@ -8,7 +8,7 @@ class User(db.Model, SerializerMixin):
     id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String)
     email = db.Column(db.String)
-    recipes = db.relationship('Recipe', backref='user')
+    recipes = db.relationship('Recipe', back_populates='user')
     ratings = db.relationship('Rating', back_populates='user')
 
     def to_dict(self):
@@ -35,13 +35,13 @@ class Recipe(db.Model, SerializerMixin):
     id = db.Column(db.Integer, primary_key=True)
     title = db.Column(db.String)
     ingredients = db.Column(db.String)
+    image_url = db.Column(db.String(255))  # Fixed typo here
     instructions = db.Column(db.String)
-    user_id= db.Column(db.Integer, db.ForeignKey('users.id'))  
-      
-
+    user_id = db.Column(db.Integer, db.ForeignKey('users.id'))
     category_id = db.Column(db.Integer, db.ForeignKey('categories.id'))
-    category = db.relationship('Category', back_populates='recipes')
 
+    user = db.relationship('User', back_populates='recipes')
+    category = db.relationship('Category', back_populates='recipes')
     ratings = db.relationship('Rating', back_populates='recipe')
 
     def to_dict(self):
@@ -49,15 +49,16 @@ class Recipe(db.Model, SerializerMixin):
             'id': self.id,
             'title': self.title,
             'ingredients': self.ingredients,
+            'image_url': self.image_url,  # Changed 'image_url' here
             'instructions': self.instructions,
             'user_id': self.user_id,
             'category_id': self.category_id,
             'ratings': [rating.to_dict() for rating in self.ratings]
         }
 
-
     def __repr__(self):
-        return f'<Recipe {self.id} : {self.title} : {self.ingredients} :{self.instructions} :{self.category_id} >'
+        return f'<Recipe {self.id} : {self.title} : {self.ingredients} : {self.instructions} : {self.category_id}>'
+
 
 
 

@@ -59,6 +59,9 @@ function RecipeDetail() {
   return (
     <div>
       <h2>{recipe.title}</h2>
+      {recipe.image_url && <img src={recipe.image_url} alt={recipe.title} />}
+      <p>User ID: {recipe.user_id}</p>
+      <p>Category ID: {recipe.category_id}</p>
       <p>Ingredients: {recipe.ingredients}</p>
       <p>Instructions: {recipe.instructions}</p>
       <div>

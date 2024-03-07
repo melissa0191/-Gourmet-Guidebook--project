@@ -40,17 +40,24 @@ function RecipeList() {
   return (
     <div>
       <h2>Recipe List</h2>
-      {recipes.map(recipe => (
-        <div key={recipe.id}>
-          <h3>{recipe.title}</h3>
-          <p>Ingredients: {recipe.ingredients}</p>
-          <p>Instructions: {recipe.instructions}</p>
-          <button onClick={() => handleDeleteRecipe(recipe.id)}>Delete</button>
-        </div>
-      ))}
+      <div style={{ display: 'flex', flexWrap: 'wrap' }}>
+        {recipes.map(recipe => (
+          <div key={recipe.id} style={{ width: '30%', padding: '10px' }}> {/* Set width to 50% for two columns */}
+            <h3>{recipe.title}</h3>
+            {recipe.image_url && <img src={recipe.image_url} alt={recipe.title} style={{ maxWidth: '100%', height: 'auto' }} />} {/* Apply styles for image */}
+            <p>Ingredients: {recipe.ingredients}</p>
+            <p>Instructions: {recipe.instructions}</p>
+            <p>User ID: {recipe.user_id}</p>
+            <p>Category ID: {recipe.category_id}</p>
+            <button onClick={() => handleDeleteRecipe(recipe.id)}>Delete</button>
+          </div>
+        ))}
+      </div>
       <Link to="/recipes/new">Create New Recipe</Link>
     </div>
   );
 }
 
 export default RecipeList;
+
+
