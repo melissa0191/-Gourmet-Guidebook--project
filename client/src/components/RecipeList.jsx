@@ -6,6 +6,8 @@ function RecipeList() {
   const [recipes, setRecipes] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [ratedRecipe, setRatedRecipe] = useState(null);
+  const [ratingValue, setRatingValue] = useState(null);
 
   useEffect(() => {
     axios.get('http://127.0.0.1:5556/recipes')
@@ -29,6 +31,12 @@ function RecipeList() {
       });
   };
 
+  const handleRateRecipe = (id, rating) => {
+    setRatedRecipe(id);
+    setRatingValue(rating);
+    // For sending rating to the backend, you can include this logic here
+  };
+
   if (isLoading) {
     return <div>Loading...</div>;
   }
@@ -38,26 +46,35 @@ function RecipeList() {
   }
 
   return (
-    <div>
-      <h2>Recipe List</h2>
-      <div style={{ display: 'flex', flexWrap: 'wrap' }}>
-        {recipes.map(recipe => (
-          <div key={recipe.id} style={{ width: '30%', padding: '10px' }}> {/* Set width to 50% for two columns */}
-            <h3>{recipe.title}</h3>
-            {recipe.image_url && <img src={recipe.image_url} alt={recipe.title} style={{ maxWidth: '100%', height: 'auto' }} />} {/* Apply styles for image */}
-            <p>Ingredients: {recipe.ingredients}</p>
-            <p>Instructions: {recipe.instructions}</p>
-            <p>User ID: {recipe.user_id}</p>
-            <p>Category ID: {recipe.category_id}</p>
-            <button onClick={() => handleDeleteRecipe(recipe.id)}>Delete</button>
+    <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '30px' }}>
+      {recipes.map(recipe => (
+        <div key={recipe.id}>
+          <h3>{recipe.title}</h3>
+          {recipe.image_url && <img src={recipe.image_url} alt={recipe.title} style={{ maxWidth: '400px', maxHeight: '400px' }} />}
+          <p>Ingredients: {recipe.ingredients}</p>
+          <p>Instructions: {recipe.instructions}</p>
+          <p>User ID: {recipe.user_id}</p>
+          <p>Category ID: {recipe.category_id}</p>
+          <button onClick={() => handleDeleteRecipe(recipe.id)}>Delete</button>
+          <div>
+            Rate:
+            {[1, 2, 3, 4, 5].map(rating => (
+              <button key={rating} onClick={() => handleRateRecipe(recipe.id, rating)}>{rating}</button>
+            ))}
           </div>
-        ))}
-      </div>
+          {ratedRecipe === recipe.id && (
+            <p>You rated "{recipe.title}" with {ratingValue}</p>
+          )}
+        </div>
+      ))}
       <Link to="/recipes/new">Create New Recipe</Link>
     </div>
   );
 }
 
 export default RecipeList;
+
+
+
 
 
