@@ -5,7 +5,7 @@
 
 ## Phase and Cohort: Flask Phase 5 SE111323
 
-## App description:Recipe Manager is a web application designed to help users manage their recipes. 
+## App description:Gourmet Guidebook is a web application designed to help users manage their recipes. 
 
 ## CRUD User Story
 
